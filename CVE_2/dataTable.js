@@ -4,7 +4,7 @@
 
 
 
-
+//display 
 async function getData(){
     const data = await fetch('https://services.nvd.nist.gov/rest/json/cves/2.0');
     const records = await data.json();
