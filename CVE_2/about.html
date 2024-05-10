@@ -46,12 +46,17 @@
             )
         });
 
-        $(".tablemanager").tablemanager({
-            firstSort: [
-                [3, 0],
-                [2, 0],
-                [1, "asc"],
-            ],
+        // $(".tablemanager").tablemanager({
+        //     firstSort: [
+        //         [3, 0],
+        //         [2, 0],
+        //         [1, "asc"],
+        //     ],
+        $('.tablemanager').tablemanager({
+  sort: true, // Enable sorting
+  sortList: [[0,0],[1,0],[2,0],[3,0],[4,0]] ,// Sort first five columns in ascending order
+// });
+
             appendFilterby: true,
             debug: true,
             vocabulary:{
