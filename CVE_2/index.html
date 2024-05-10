@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<!-- Don't forget to remove bootstrap -->
+<body onload="getData()">
+    <div class="container mt-5 mb-5">
+        <table class="table table-striped" id="userTable">
+            <thead>
+                <th>CVE ID</th>
+                <th>IDENTIFIER</th>
+                <th>PUBLISHED DATE</th>
+                <th>LAST MODIFIED DATE</th>
+                <th>STATUS</th>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+    
+    <script src="dataTable.js"></script>
+</body>
+</html>
