@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="jquery-3.7.1.min.js"></script>
+ <script src="tableManager.js"></script> 
+    
+
+</head>
+<body>
+    <h1>NVD - CVE</h1>
+    <table class="tablemanager">
+        <thead><tr>
+            <th>CVE ID</th>
+            <th>IDENTIFIER</th>
+            <th>PUBLISHED DATE</th>
+            <th>LAST MODIFIED DATE</th>
+            <th>STATUS</th>
+        </tr>
+        </thead>
+        <tbody id="body">
+        </tbody>
+    </table>
+</body>
+
+<script>
+    fetch("https://services.nvd.nist.gov/rest/json/cves/2.0")
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data)
+
+        data.vulnerabilities.forEach((vulnerabilities) => {
+            $("#body").append(
+                ` <tr>
+        <td>${vulnerabilities.cve.id}</td>
+        <td>${vulnerabilities.cve.sourceIdentifier}</td>
+        <td>${vulnerabilities.cve.published}</td>
+        <td>${vulnerabilities.cve.lastModified}</td>
+        <td>${vulnerabilities.cve.vulnStatus}</td>
+        </tr>`
+            )
+        });
+
+        $(".tablemanager").tablemanager({
+            firstSort: [
+                [3, 0],
+                [2, 0],
+                [1, "asc"],
+            ],
+            appendFilterby: true,
+            debug: true,
+            vocabulary:{
+                voc_filter_by: "Filter By",
+                voc_type_here_filter: "Filter...",
+                voc_show_rows: "Rows Per Page",
+            },
+            pagination: true,
+            showrows: [10, 50, 100],
+        })
+    })
+
+</script>
+
+</html>
