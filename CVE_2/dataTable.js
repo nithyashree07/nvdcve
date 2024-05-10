@@ -19,4 +19,7 @@ async function getData(){
     })
 
     document.getElementById('tbody').innerHTML = tab;
+
+    // let total= `$totalResults`;
+    // console.log(total);
 }
