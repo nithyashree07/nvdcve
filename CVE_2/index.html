@@ -13,6 +13,7 @@
 <script src="https://kit.fontawesome.com/f27981b6a0.js" crossorigin="anonymous"></script>
 
  <script src="table.js"></script> 
+ <!-- <script src="about.js"></script> -->
     
 
 </head>
@@ -56,11 +57,6 @@
                 [2, 0],
                 [1, "asc"],
             ],
-//         $('.tablemanager').tablemanager({
-//   sort: true, // Enable sorting
-//   sortList: [[0,0],[1,0],[2,0],[3,0],[4,0]] ,
-  // Sort first five columns in ascending order
-// });
 
             appendFilterby: true,
             debug: true,
@@ -72,6 +68,14 @@
             pagination: true,
             showrows: [10, 50, 100],
         })
+            $(document).ready(function() {
+  // Add event listener to table rows
+  $('.tablemanager tbody tr').click(function() {
+    const cveId = $(this).find('td:first-child').text();
+    // Navigate to the second page and display the CVE data
+    window.location.href = `/cves/${cveId}.html`;
+  });
+});
     })
 
 </script>
