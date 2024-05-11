@@ -30,6 +30,18 @@ button{
 .tablemanager th.sorterHeader{
     cursor : pointer;
 }
+.tablemanager th.sorterHeader:after{
+    content: '\f0dc';
+    font-family: 'FontAwesome';
+}
+.tablemanager th.sortingDesc:after{
+    content: '\f0dd';
+    font-family: 'FontAwesome';
+}
+.tablemanager th.sortingAsc:after{
+    content: '\f0de';
+    font-family: 'FontAwesome';
+}
 
 #for_numrows{
     padding: 10px;
