@@ -45,13 +45,14 @@ button{
 
 #for_numrows{
     padding: 10px;
-    float: right;
+    float: left;
 }
 #for_filter_by{
     padding: 10px;
     float: right;
 }
-#pageControllers{
+#pagesControllers{
     display:block;
-    text-align: center;
+    padding: 10px;
+    text-align: right;
 }
