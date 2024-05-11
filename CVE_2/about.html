@@ -16,7 +16,7 @@
     
 
 </head>
-<body>
+<body onload="hideLoader()">
     <h1>NVD - CVE</h1>
     <table class="tablemanager">
         <thead><tr>
@@ -73,6 +73,10 @@
             showrows: [10, 50, 100],
         })
     })
+
+    function hideLoader(){
+  $('.page-loader').fadeOut('slow');
+}
 
 </script>
 
