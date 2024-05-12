@@ -69,24 +69,15 @@
             showrows: [10, 50, 100],
         })
             $(document).ready(function() {
-  // Add event listener to table rows
+  
   $('.tablemanager tbody tr').click(function() {
     const cveId = $(this).find('td:first-child').text();
-    // Navigate to the second page and display the CVE data
     // window.location.href = `/cves/${cveId}.html`;
     localStorage.setItem("selectedCVE", cveId);
     window.location.href = `/CVE_2/cve.html`;
   });
 });
     })
-//     const rows = document.querySelectorAll("#body tr");
-// rows.forEach((row) => {
-//   row.addEventListener("click", () => {
-//     const cveId = row.querySelector("td:first-child").textContent;
-//     localStorage.setItem("selectedCVE", cveId);
-//     window.location.href = `/cves/CVE-${cveId}.html`;
-//   });
-// });
 
 </script>
 
