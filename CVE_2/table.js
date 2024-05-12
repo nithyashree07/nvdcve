@@ -1,11 +1,8 @@
 
 
 (function ($) {
-    /* Initialize function */
     $.fn.tablemanager = function (options = null) {
-        /**
-        Get common variables, parts of tables and others utilities
-        **/
+       
         var Table   = $(this),
             Heads   = $(this).find("thead th"),
             tbody   = $(this).find("tbody"),
