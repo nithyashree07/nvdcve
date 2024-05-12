@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
+        .whole{
             margin: 20px 200px 0px 200px;
         }
 
@@ -63,6 +63,11 @@
 </head>
 
 <body>
+    <div class="page-loader">
+        
+        <div class="spinner">
+        </div></div>
+<div class="whole">
     <h2 id="cvenumber">CVE Details</h2>
 
     <h5>Description</h5>
@@ -121,8 +126,13 @@
         <tbody id="cpecriteria">
         </tbody>
     </table>
-
+</div>
     <script>
+
+$(document).ready(function() {
+    // Show loader when the page loads
+    $('.page-loader').show();
+
         const cveId = localStorage.getItem("selectedCVE");
         document.getElementById('cvenumber').innerHTML = cveId;
         //console.log(cveId);
@@ -223,7 +233,16 @@
                 });
 
 
-            });
+            // });
+                    // Hide loader after data is fetched and displayed
+        $('.page-loader').fadeOut('slow');
+    })
+    .catch((error) => {
+        console.error('Error fetching data:', error);
+        // Handle error, e.g., show an error message
+        $('.page-loader').fadeOut('slow');
+    });
+});
 
 
 
