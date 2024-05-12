@@ -1,5 +1,13 @@
 body{
-    background-color: #f7f7f7;
+    /* background-color: #f7f7f7; */
+    padding: 10px 40px;
+ 
+}
+h2{
+   padding-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .container{
     margin: 50px auto;
@@ -44,15 +52,17 @@ button{
 }
 
 #for_numrows{
-    padding: 10px;
+    margin-top: 30px;
+    padding: 10px 0px;
     float: left;
 }
 #for_filter_by{
-    padding: 10px;
+    margin-top: 30px;
+    padding: 10px 0px;
     float: right;
 }
 #pagesControllers{
     display:block;
-    padding: 10px;
+    /* padding: 10px; */
     text-align: right;
 }
