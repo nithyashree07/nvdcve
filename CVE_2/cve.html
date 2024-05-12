@@ -17,10 +17,27 @@
       <title>CVE</title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
       <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
       <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1 id="cvenumber">CVE Details</h1>
+        <h2 id="cvenumber">CVE Details</h2>
+
+        <h5>Description</h5>
+        <div id="description"></div>
+<br>
+        <h5>CVSS V2 Metrics:</h5>
+        <h6>Severity:</h6>
+        <div id="baseSeverity"></div>
+
+        <h6>Score:</h6>
+        <div id="baseScore"></div>
+
+        <h6>Vector String:</h6>
+        <div id="vectorString"></div>
+
+
         <div>
             <table  id="cveDetails">
                 <thead><tr>
@@ -36,17 +53,75 @@
                 </tbody>
             </table>
         </div>
+        
+        <h5>Scores:</h5>
+        <h6>Exploitability Score: </h6>
+        <div id="exploitabilityScore"></div>
+    
+        <h6>Impact Score:</h6>
+        <div id="impactScore"></div>
+
+        <h5>CPE:</h5>
+        <table  id="criteria">
+            <thead><tr>
+                <th>Criteria</th>
+                <th>Match Criteria ID</th>
+                <th>Vulnerable</th>
+            </tr>
+            </thead>
+            <tbody id="cpecriteria">
+            </tbody>
+        </table>
     
       <script>
         const cveId = localStorage.getItem("selectedCVE");
         document.getElementById('cvenumber').innerHTML=cveId;
         //console.log(cveId); vulnerabilities.cve.id.metrics.cvssMetricV2.
-   
+        const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const apiUrl = 'https://services.nvd.nist.gov/rest/json/cves/2.0';
+
+// fetch(proxyUrl + apiUrl)
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(error => {
+//     console.error('Error fetching data:', error);
+//   });
+
         fetch("https://services.nvd.nist.gov/rest/json/cves/2.0")
     .then((res) => res.json())
     .then((data) => {
-        console.log(data)
-        console.log(cveId);
+        // console.log(data)
+        // console.log(cveId);
+        data.vulnerabilities.forEach((vulnerability) => {
+    if (cveId === vulnerability.cve.id) {
+        const firstDescription = vulnerability.cve.descriptions[0]?.value;
+        const baseSeverity = vulnerability.cve.metrics.cvssMetricV2[0]?.baseSeverity;
+        const baseScore = vulnerability.cve.metrics.cvssMetricV2[0]?.cvssData.baseScore;
+        const vectorString = vulnerability.cve.metrics.cvssMetricV2[0]?.cvssData.vectorString;
+        const exploitabilityScore = vulnerability.cve.metrics.cvssMetricV2[0]?.exploitabilityScore;
+        const impactScore = vulnerability.cve.metrics.cvssMetricV2[0]?.impactScore;
+
+        if (firstDescription) {
+            document.getElementById('description').innerHTML = firstDescription;
+        } else {
+            console.log(`No description available for CVE ID: ${cveId}`);
+        }
+
+        if (baseSeverity && baseScore && vectorString && exploitabilityScore && impactScore) {
+            document.getElementById('baseSeverity').innerHTML = baseSeverity;
+            document.getElementById('baseScore').innerHTML = baseScore;
+            document.getElementById('vectorString').innerHTML = vectorString;
+            document.getElementById('exploitabilityScore').innerHTML = exploitabilityScore;
+            document.getElementById('impactScore').innerHTML = impactScore;
+        } else {
+            console.log(`Some CVSS metrics are not available for CVE ID: ${cveId}`);
+        }
+    }
+});
+
+
 
         data.vulnerabilities.forEach((vulnerability) => {
     if (cveId === vulnerability.cve.id) {
@@ -79,7 +154,39 @@
         }
     }
 });
+data.vulnerabilities.forEach((vulnerability) => {
+    if (cveId === vulnerability.cve.id) {
+        const configurations = vulnerability.cve.configurations;
+        if (configurations) {
+            configurations.forEach(configuration => {
+                configuration.nodes.forEach(node => {
+                    node.cpeMatch.forEach(match => {
+                        const criteria = match.criteria;
+                        const matchCriteriaId = match.matchCriteriaId;
+                        const vulnerable = match.vulnerable;
+
+                        $("#cpecriteria").append(`
+                            <tr>
+                                <td>${criteria}</td>
+                                <td>${matchCriteriaId}</td>
+                                <td>${vulnerable}</td>
+                            </tr>
+                        `);
+                    });
+                });
+            });
+        } else {
+            console.log(`Configurations not available for ${cveId}`);
+        }
+    }
+});
+
+
   });
+
+ 
+
+
     </script>
 </body>
 </html>
